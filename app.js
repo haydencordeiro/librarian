@@ -315,9 +315,34 @@ function endRound() {
 
     roundStartPos = globalPos;
 
+    if (typeof confetti === "function" && winnerMsg !== "It's a tie! No points awarded.") {
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            zIndex: 10001
+        });
+    }
+
     showModal("Round Over!", `${winnerMsg}\n\nGertrude went ${roundDistance1} spaces.\nWilfred went ${roundDistance2} spaces.\n\nNext round starts from this position.`, "Next Round", () => {
         if (score1 >= 12 || score2 >= 12) {
             let champ = score1 >= 12 ? "Gertrude" : "Wilfred";
+            
+            if (typeof confetti === "function") {
+                let duration = 3000;
+                let animationEnd = Date.now() + duration;
+                let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 };
+
+                let interval = setInterval(function() {
+                    let timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+                    let particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+                }, 250);
+            }
+
             showModal("🏆 GAME OVER!", `${champ} wins the game!`, "Play Again", initGame);
         } else {
             startNewRound();
