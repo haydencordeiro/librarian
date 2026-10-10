@@ -57,6 +57,7 @@ const distanceTeam2 = document.getElementById('distance-team2');
 const bonusTeam1 = document.getElementById('bonus-team1');
 const bonusTeam2 = document.getElementById('bonus-team2');
 const resetBtn = document.getElementById('reset-btn');
+const tutorialBtn = document.getElementById('tutorial-btn');
 const wheelTrack = document.getElementById('wheel-track');
 
 // Game State
@@ -333,6 +334,54 @@ resetBtn.addEventListener('click', () => {
     startStopBtn.textContent = 'Start Turn';
     categoryDisplay.textContent = "Wait for turn...";
     initGame();
+});
+
+const tutorialSteps = [
+    { text: "Welcome to Really Loud Librarians!\n\nFirst, divide into two teams. One team will be Gertrude 🏃‍♀️ and the other will be Wilfred 🧙‍♂️.\n\nThis app is your digital game board!", highlight: null },
+    { text: "1. Start your turn!\n\nWhen you press 'Start Turn', you'll be given a category and your 60-second timer will begin.", highlight: ".timer-box" },
+    { text: "2. The Category\n\nYour team must shout out words that fit the category displayed here...", highlight: ".category-box" },
+    { text: "3. The Chain (Letters)\n\n...AND the word must start with one of the 3 highlighted letters in the green box!\n\nIf the letters are S, B, C, and the category is 'Cold Things', you could shout 'SNOW' and click 'S'.", highlight: ".wheel-container" },
+    { text: "4. Moving Forward\n\nClicking a letter advances your team to that letter. If you use the 3rd letter, you jump 3 spaces! The further the letter, the faster you move.", highlight: ".action-section" },
+    { text: "5. Bonus Stars ⭐\n\nSee a ⭐? Land on it or pass it to collect bonus points for the end of the round.", highlight: ".wheel-container" },
+    { text: "6. Passing the Baton\n\nWhen your 60 seconds run out, your turn ends. The OTHER team picks up from the exact spot you left off!", highlight: ".turn-box" },
+    { text: "7. Winning the Round\n\nWhoever travels the furthest distance during their 60 seconds wins the round and gets 1 point. First to 12 points wins the whole game!", highlight: ".bottom-stats" },
+    { text: "You are ready to play!!\n\nHit 'Got it!' and click 'Start Turn' to begin the chaos.", highlight: "#start-stop-btn" }
+];
+
+let currentTutorialStep = 0;
+const tutorialOverlay = document.getElementById('tutorial-overlay');
+
+function clearTutorialHighlights() {
+    document.querySelectorAll('.tutorial-highlight').forEach(el => el.classList.remove('tutorial-highlight'));
+}
+
+function renderTutorialStep() {
+    clearTutorialHighlights();
+    
+    let step = tutorialSteps[currentTutorialStep];
+    if (step.highlight) {
+        const el = document.querySelector(step.highlight);
+        if (el) el.classList.add('tutorial-highlight');
+    }
+
+    let btnText = currentTutorialStep < tutorialSteps.length - 1 ? "Next ➔" : "Got it!";
+    
+    showModal("How to Play", step.text, btnText, () => {
+        if (currentTutorialStep < tutorialSteps.length - 1) {
+            currentTutorialStep++;
+            setTimeout(renderTutorialStep, 50); 
+        } else {
+            clearTutorialHighlights();
+            tutorialOverlay.classList.add('hidden');
+        }
+    });
+}
+
+tutorialBtn.addEventListener('click', () => {
+    sounds.click();
+    currentTutorialStep = 0;
+    tutorialOverlay.classList.remove('hidden');
+    renderTutorialStep();
 });
 
 // Start

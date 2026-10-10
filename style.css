@@ -377,3 +377,21 @@ h2, h3 {
         flex: 1 1 100%;
     }
 }
+
+/* Tutorial Overlay System */
+#tutorial-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    z-index: 998;
+    transition: opacity 0.3s;
+}
+#tutorial-overlay.hidden {
+    display: none;
+}
+.tutorial-highlight {
+    position: relative !important;
+    z-index: 999 !important;
+    box-shadow: 0 0 0 4px var(--lamp-green), 0 0 30px rgba(255, 255, 255, 1) !important;
+    border-radius: 5px;
+}
