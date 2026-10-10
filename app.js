@@ -102,11 +102,15 @@ function initGame() {
     globalPos = 0;
     roundStartPos = 0;
     
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let baseTrack = [];
-    for(let i=0; i<TRACK_LENGTH; i++) {
-        baseTrack.push(alphabet[Math.floor(Math.random() * alphabet.length)]);
+    // The actual game uses 20 unique letters and excludes Q, U, V, X, Y, Z
+    let availableLetters = "ABCDEFGHIJKLMNOPRSTW".split('');
+    
+    // Shuffle the 20 letters to create the board
+    for (let i = availableLetters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [availableLetters[i], availableLetters[j]] = [availableLetters[j], availableLetters[i]];
     }
+    let baseTrack = availableLetters;
 
     trackLetters = [];
     for(let i=0; i<TOTAL_WHEEL_ITEMS; i++) {
