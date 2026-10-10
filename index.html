@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Really Loud Librarians</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <main class="main-card library-card">
+            <div class="top-stats">
+                <div class="turn-box card-section">
+                    <h2>Current Turn</h2>
+                    <div id="turn-indicator" class="team-name gertrude-turn">🏃‍♀️ Gertrude</div>
+                </div>
+
+                <div class="timer-box card-section">
+                    <div id="timer-display" class="huge-timer">60</div>
+                    <button id="start-stop-btn" class="btn primary-btn">Start Turn</button>
+                </div>
+
+                <div class="category-box card-section">
+                    <h2>Category</h2>
+                    <p id="category-display" class="category-text">Wait for turn...</p>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <h3>Card Catalog</h3>
+                <div class="wheel-container">
+                    <div id="wheel-track" class="wheel-track">
+                        <!-- JS will inject letter nodes here -->
+                    </div>
+                    <!-- Selection overlay box -->
+                    <div class="wheel-selector"></div>
+                </div>
+            </div>
+
+            <div class="bottom-stats">
+                <div class="score-box stat-col card-section">
+                    <h3>Game Points</h3>
+                    <p>🏃‍♀️ Gertrude: <span id="points-team1">0</span></p>
+                    <p>🧙‍♂️ Wilfred: <span id="points-team2">0</span></p>
+                </div>
+                
+                <div class="score-box stat-col card-section">
+                    <h3>Round Distance</h3>
+                    <p>🏃‍♀️ Gertrude: <span id="distance-team1">0</span> <span id="bonus-team1" class="bonus-text"></span></p>
+                    <p>🧙‍♂️ Wilfred: <span id="distance-team2">0</span> <span id="bonus-team2" class="bonus-text"></span></p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="reset-btn" class="btn small-btn stamp-btn">New Game</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom Modal -->
+    <div id="custom-modal" class="modal hidden">
+        <div class="modal-content library-card">
+            <h2 id="modal-title">Notice</h2>
+            <p id="modal-text" style="font-size: 1.2rem; white-space: pre-line; margin-bottom: 20px;">Message goes here.</p>
+            <button id="modal-btn" class="btn primary-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
